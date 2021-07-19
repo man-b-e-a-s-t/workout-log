@@ -1,0 +1,10 @@
+[13-Jul-2021 11:00:42 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/z67acaa26fhs/public_html/workout_log/api/objects/exercise.php:33
+Stack trace:
+#0 /home/z67acaa26fhs/public_html/workout_log/api/exercise/read.php(18): Exercise->read()
+#1 {main}
+  thrown in /home/z67acaa26fhs/public_html/workout_log/api/objects/exercise.php on line 33
+[13-Jul-2021 11:02:59 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/z67acaa26fhs/public_html/workout_log/api/objects/exercise.php:33
+Stack trace:
+#0 /home/z67acaa26fhs/public_html/workout_log/api/exercise/read.php(18): Exercise->read()
+#1 {main}
+  thrown in /home/z67acaa26fhs/public_html/workout_log/api/objects/exercise.php on line 33
