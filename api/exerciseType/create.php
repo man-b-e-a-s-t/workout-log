@@ -9,13 +9,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
   
-// instantiate exercise object
-include_once '../objects/exercise.php';
+// instantiate exerciseType object
+include_once '../objects/exerciseType.php';
   
 $database = new Database();
 $db = $database->getConnection();
   
-$exercise = new Exercise($db);
+$exerciseType = new ExerciseType($db);
   
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -23,37 +23,30 @@ $data = json_decode(file_get_contents("php://input"));
 // make sure data is not empty
 if(
     !empty($data->userId) &&
-    !empty($data->name) &&
-    !empty($data->exerciseTypeId) &&
-    !empty($data->notes)
+    !empty($data->name)
 ){
   
-    // set exercise property values
-    $exercise->user_id = $data->userId;
-    $exercise->name = $data->name;
-    $exercise->exercise_type_id = $data->exerciseTypeId;
-    $exercise->notes = $data->notes;
-    $exercise->modified = date('Y-m-d H:i:s');
-    $exercise->created = date('Y-m-d H:i:s');
+    // set exerciseType property values
+    $exerciseType->name = $data->name;
   
-    // create the exercise
-    if($exercise->create()){
+    // create the exerciseType
+    if($exerciseType->create()){
   
         // set response code - 201 created
         http_response_code(201);
   
         // tell the user
-        echo json_encode(array("message" => "Exercise was created."));
+        echo json_encode(array("message" => "Exercise type was created."));
     }
   
-    // if unable to create the exercise, tell the user
+    // if unable to create the exerciseType, tell the user
     else{
   
         // set response code - 503 service unavailable
         http_response_code(503);
   
         // tell the user
-        echo json_encode(array("message" => "Unable to create exercise."));
+        echo json_encode(array("message" => "Unable to create exercise type."));
     }
 }
   
@@ -64,6 +57,6 @@ else{
     http_response_code(400);
   
     // tell the user
-    echo json_encode(array("message" => "Unable to create exercise. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to create exercise type. Data is incomplete."));
 }
 ?>

@@ -1,0 +1,36 @@
+<h1>Exercises</h1>
+
+<div *ngIf="loaded">
+
+  <p *ngIf="exercises.length == 0">You haven't created any exercises yet.</p>
+
+  <p *ngIf="exercises.length > 0">These are the exercises you've created.</p>
+
+  <table *ngIf="exercises.length > 0" mat-table [dataSource]="exercises" class="mat-elevation-z8 clickable">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let exercise"> {{exercise?.name}} </td>
+    </ng-container>
+
+    <!-- Exercise Type Column -->
+    <ng-container matColumnDef="exerciseTypeId">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let exercise"> {{exercise?.exerciseType?.name}} </td>
+    </ng-container>
+
+    <!-- Notes Column -->
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef> Notes </th>
+      <td mat-cell *matCellDef="let exercise"> {{exercise?.notes}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="{{row.id}}"></tr>
+  </table>
+
+</div>
+<button mat-fab aria-label="New Exercise" routerLink="/exercises/new" class="cta-bottom-right">
+  <mat-icon aria-hidden="false">add</mat-icon>
+</button>

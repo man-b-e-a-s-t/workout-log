@@ -8,45 +8,41 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
   
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/exercise.php';
+include_once '../objects/exerciseType.php';
   
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
   
-// prepare exercise object
-$exercise = new Exercise($db);
+// prepare exerciseType object
+$exerciseType = new ExerciseType($db);
   
-// get id of exercise to be edited
+// get id of exerciseType to be edited
 $data = json_decode(file_get_contents("php://input"));
   
-// set ID property of exercise to be edited
-$exercise->id = $data->id;
+// set ID property of exerciseType to be edited
+$exerciseType->id = $data->id;
   
-// set exercise property values
-$exercise->user_id = $data->userId;
-$exercise->name = $data->name;
-$exercise->exercise_type_id = $data->exerciseTypeId;
-$exercise->notes = $data->notes;
-$exercise->modified = date('Y-m-d H:i:s');
+// set exerciseType property values
+$exerciseType->name = $data->name;
 
-// update the exercise
-if($exercise->update()){
+// update the exerciseType
+if($exerciseType->update()){
   
     // set response code - 200 ok
     http_response_code(200);
   
     // tell the user
-    echo json_encode(array("message" => "Exercise was updated."));
+    echo json_encode(array("message" => "Exercise type was updated."));
 }
   
-// if unable to update the exercise, tell the user
+// if unable to update the exerciseType, tell the user
 else{
   
     // set response code - 503 service unavailable
     http_response_code(503);
   
     // tell the user
-    echo json_encode(array("message" => "Unable to update exercise."));
+    echo json_encode(array("message" => "Unable to update exercise type."));
 }
 ?>

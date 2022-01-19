@@ -3,7 +3,7 @@ class ExerciseSet{
   
     // database connection and table name
     private $conn;
-    private $table_name = "exercise_set";
+    private $table_name = "exerciseSet";
   
     // object properties
     public $id;

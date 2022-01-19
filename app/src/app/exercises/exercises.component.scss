@@ -1,0 +1,21 @@
+table {
+  max-width: 100%;
+
+  td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: .3s background-color;
+  }
+
+  td.mat-column-name,
+  td.mat-column-exerciseTypeId {
+    max-width: 30px;
+    padding-right: 10px;
+  }
+
+  td.mat-column-notes {
+    max-width: 100px;
+  }
+
+}

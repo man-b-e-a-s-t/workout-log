@@ -6,24 +6,24 @@ header("Access-Control-Allow-Methods: GET");
   
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/exercise.php';
+include_once '../objects/exerciseType.php';
   
-// instantiate database and exercise object
+// instantiate database and exerciseType object
 $database = new Database();
 $db = $database->getConnection();
   
 // initialize object
-$exercise = new Exercise($db);
+$exerciseType = new ExerciseType($db);
 
 // set ID property of record to read
-$exercise->id = isset($_GET['id']) ? $_GET['id'] : null;
+$exerciseType->id = isset($_GET['id']) ? $_GET['id'] : null;
 
 // query items
-$stmt = $exercise->read();
+$stmt = $exerciseType->read();
 $num = $stmt->rowCount();
 
 // items array
-$exercises_arr=array();
+$exerciseTypes_arr=array();
   
 // check if more than 0 record found
 if($num>1){
@@ -39,22 +39,17 @@ if($num>1){
   
         $arr_item=array(
             "id" => $id,
-            "userId" => $user_id,
-            "name" => $name,
-            "exerciseTypeId" => $exercise_type_id,
-            "notes" => html_entity_decode($notes),
-            "created" => $created,
-            "modified" => $modified
+            "name" => $name
         );
   
-        array_push($exercises_arr, $arr_item);
+        array_push($exerciseTypes_arr, $arr_item);
     }
   
     // set response code - 200 OK
     http_response_code(200);
   
-    // show exercise data in json format
-    echo json_encode($exercises_arr);
+    // show exerciseType data in json format
+    echo json_encode($exerciseTypes_arr);
     
 } elseif($num==1){    
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -63,28 +58,23 @@ if($num>1){
         // just $name only
         extract($row);
 
-        $exercises_arr=array(
+        $exerciseTypes_arr=array(
             "id" => $id,
-            "userId" => $user_id,
-            "name" => $name,
-            "exerciseTypeId" => $exercise_type_id,
-            "notes" => html_entity_decode($notes),
-            "created" => $created,
-            "modified" => $modified
+            "name" => $name
         );
     }
 
     // set response code - 200 OK
     http_response_code(200);
   
-    // show exercise data in json format
-    echo json_encode($exercises_arr);
+    // show exerciseType data in json format
+    echo json_encode($exerciseTypes_arr);
 
 } else {
   
     // set response code - 404 Not found
     // http_response_code(404);
   
-    // tell the user no exercises found
-    echo json_encode($exercises_arr);
+    // tell the user no exerciseTypes found
+    echo json_encode($exerciseTypes_arr);
 }
