@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { WorkoutDetailsComponent } from './workouts/workout-details/workout-details.component';
+import { WorkoutExercisesComponent } from './workoutExercises/workoutExercises.component';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { ExerciseDetailsComponent } from './exercises/exercise-details/exercise-details.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -31,6 +32,7 @@ import { LoadingService } from './services/loading/loading.service';
     HomeComponent,
     WorkoutsComponent,
     WorkoutDetailsComponent,
+    WorkoutExercisesComponent,
     ExercisesComponent,
     ExerciseDetailsComponent,
     SettingsComponent

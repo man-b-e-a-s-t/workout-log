@@ -14,9 +14,10 @@ export class ExerciseDetailsComponent implements OnInit {
   exercise: Exercise | undefined;
   loaded: boolean = false;
   exerciseTypes: ExerciseType[] = [
-    { id: 1, name: "Lower Body" },
-    { id: 2, name: "Upper Body" },
-    { id: 3, name: "Core" }
+    { id: 1, name: "Barbell" },
+    { id: 2, name: "Dumbell" },
+    { id: 3, name: "Resistance Bands" },
+    { id: 4, name: "Bodyweight" }
   ];
 
   constructor(private loadingService: LoadingService, private exerciseService: ExerciseService, private route: ActivatedRoute) {

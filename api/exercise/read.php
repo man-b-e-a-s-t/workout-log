@@ -26,7 +26,7 @@ $num = $stmt->rowCount();
 $exercises_arr=array();
   
 // check if more than 0 record found
-if($num>1){
+if(!isset($_GET['id']) && $num>0){
     
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -56,7 +56,7 @@ if($num>1){
     // show exercise data in json format
     echo json_encode($exercises_arr);
     
-} elseif($num==1){    
+} elseif(isset($_GET['id']) && $num==1){    
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         // extract row
         // this will make $row['name'] to

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingService } from '../../services/loading/loading.service';
+import { Workout } from '../workout.interface';
+import { WorkoutService } from '../workout.service';
 
 @Component({
   selector: 'app-workout-details',
@@ -7,9 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutDetailsComponent implements OnInit {
 
-  constructor() { }
+  workout: Workout | undefined;
+  loaded: boolean = false;
+
+  constructor(private loadingService: LoadingService, private workoutService: WorkoutService, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.loadWorkout(params['id']);
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  loadWorkout(id: string) {
+    if (id != `new`) {
+      this.loadingService.isLoading();
+      this.workoutService.getWorkout(id).subscribe((workout: Workout) => {
+        this.loadingService.isLoading(false);
+        this.loaded = true;
+        this.workout = new Workout(workout);
+      });
+    }
+
   }
 
 }

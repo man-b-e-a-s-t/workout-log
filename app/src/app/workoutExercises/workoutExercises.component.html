@@ -1,0 +1,53 @@
+<div *ngIf="loaded">
+
+  <p *ngIf="workoutExercises.length == 0">You haven't created any exercises yet.</p>
+
+  <table *ngIf="workoutExercises.length > 0" mat-table [dataSource]="workoutExercises"
+    class="mat-elevation-z8 clickable">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="stepNumber">
+      <th mat-header-cell *matHeaderCellDef> Step </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.stepNumber}} </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="exerciseName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.exerciseName}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="weightGoal">
+      <th mat-header-cell *matHeaderCellDef> Weight Goal </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.weightGoal}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeGoal">
+      <th mat-header-cell *matHeaderCellDef> Time Goal </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.timeGoal}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="setGoal">
+      <th mat-header-cell *matHeaderCellDef> Set Goal </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.setGoal}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="repGoal">
+      <th mat-header-cell *matHeaderCellDef> Rep Goal </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.repGoal}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef> Notes </th>
+      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.notes}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+
+<button mat-fab aria-label="Start Workout" routerLink="/workoutExercises/new" class="cta-bottom-right">
+  <mat-icon aria-hidden="false">add</mat-icon>
+</button>

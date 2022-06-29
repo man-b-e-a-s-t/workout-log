@@ -3,7 +3,7 @@ class ExerciseType{
   
     // database connection and table name
     private $conn;
-    private $table_name = "exerciseType";
+    private $table_name = "exercise_type";
   
     // object properties
     public $id;
