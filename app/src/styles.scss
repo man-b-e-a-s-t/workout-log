@@ -102,7 +102,7 @@ body {
     &:before {
       display: block;
       opacity: 1;
-      content: '';
+      // content: '';
       left: 0;
       top: 0;
       width: 100%;
@@ -181,7 +181,13 @@ div[class^="col"] {
   }
 
   .cta-bottom-right {
-    position: fixed;
+    position: fixed !important;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .cta-bottom-right-absolute {
+    position: absolute !important;
     bottom: 15px;
     right: 15px;
   }
@@ -213,4 +219,10 @@ div[class^="col"] {
   .u-textCenter {
     text-align: center;
   }
+}
+
+
+
+.mat-body p, .mat-body-1 p, .mat-typography p {
+  margin: 12px 0 !important;
 }

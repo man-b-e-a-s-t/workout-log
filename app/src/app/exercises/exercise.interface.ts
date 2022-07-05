@@ -8,12 +8,12 @@ export class Exercise {
   created: string = ``;
   modified: string = ``;
 
-  constructor(exerciseTypes: ExerciseType[], init?: Partial<Exercise>) {
+  constructor(exerciseTypes?: ExerciseType[], init?: Partial<Exercise>) {
     this.userId = -1; // get the current user's id
     this.created = new Date().toISOString();
     Object.assign(this, init);
 
-    this.exerciseType = exerciseTypes.find(x => x.id == this.exerciseTypeId);
+    this.exerciseType = exerciseTypes?.find(x => x.id == this.exerciseTypeId);
   }
 }
 

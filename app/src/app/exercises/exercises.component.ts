@@ -23,7 +23,8 @@ export class ExercisesComponent implements OnInit {
       this.exerciseService.getExercises().subscribe((exercises: Exercise[]) => {
         this.loadingService.isLoading(false);
         this.loaded = true;
-        this.exercises = exercises.map(exercise => new Exercise(exerciseTypes, exercise));
+        this.exercises = exercises.map(exercise => new Exercise(exerciseTypes, exercise))
+          .sort((a, b) => a.name < b.name ? -1 : 1);;
       });
     });
   }

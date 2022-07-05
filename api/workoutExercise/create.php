@@ -23,9 +23,7 @@ $data = json_decode(file_get_contents("php://input"));
 // make sure data is not empty
 if(
     !empty($data->userId) &&
-    !empty($data->name) &&
-    !empty($data->workoutExerciseTypeId) &&
-    !empty($data->notes)
+    !empty($data->workoutId)
 ){
   
     // set workoutExercise property values

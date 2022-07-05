@@ -54,7 +54,7 @@ class Workout{
         return $stmt;
     }
 
-    // create exercise
+    // create workout
     function create(){
         // query to insert record
         $query = "INSERT INTO
@@ -86,6 +86,31 @@ class Workout{
             return true;
         }
     
+        return false;
+    }
+
+    // copy workout
+    function copy(){
+        // query to insert record
+        $query = "INSERT INTO
+                    " . $this->table_name . "
+                    (user_id, name, workout_date, notes, created, modified)
+                SELECT
+                    user_id, name, NOW(), '', NOW(), NOW()
+                FROM
+                    " . $this->table_name . "
+                WHERE id = ?";
+    
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->id);
+
+        // execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+      
         return false;
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { WorkoutExercise } from './workoutExercise.interface';
@@ -25,7 +25,17 @@ export class WorkoutExerciseService {
     return this.http.get<WorkoutExercise[]>(`${environment.api}/workoutExercise/read.php?exerciseId=${exerciseId}`);
   }
 
-  getWorkoutExercise(workoutExerciseId: number): Observable<WorkoutExercise> {
+  getWorkoutExercise(workoutExerciseId: string): Observable<WorkoutExercise> {
     return this.http.get<WorkoutExercise>(`${environment.api}/workoutExercise/read.php?id=${workoutExerciseId}`);
+  }
+
+  createWorkoutExercise(workoutExercise: WorkoutExercise): Observable<Object> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.post(`${environment.api}/workoutExercise/create.php`, workoutExercise, { headers });
+  }
+
+  updateWorkoutExercise(workoutExercise: WorkoutExercise): Observable<Object> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.put(`${environment.api}/workoutExercise/update.php`, workoutExercise, { headers });
   }
 }

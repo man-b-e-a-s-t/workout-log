@@ -16,17 +16,17 @@ export class WorkoutDetailsComponent implements OnInit {
 
   constructor(private loadingService: LoadingService, private workoutService: WorkoutService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-      this.loadWorkout(params['id']);
+      this.loadWorkout(params['workoutId']);
     });
   }
 
   ngOnInit(): void {
   }
 
-  loadWorkout(id: string) {
-    if (id != `new`) {
+  loadWorkout(workoutId: string) {
+    if (workoutId != `new`) {
       this.loadingService.isLoading();
-      this.workoutService.getWorkout(id).subscribe((workout: Workout) => {
+      this.workoutService.getWorkout(workoutId).subscribe((workout: Workout) => {
         this.loadingService.isLoading(false);
         this.loaded = true;
         this.workout = new Workout(workout);

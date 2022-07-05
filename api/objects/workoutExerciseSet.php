@@ -7,7 +7,7 @@ class WorkoutExerciseSet{
   
     // object properties
     public $id;
-    public $workout_exercise_d;
+    public $workout_exercise_id;
     public $weight;
     public $reps;
     public $time;

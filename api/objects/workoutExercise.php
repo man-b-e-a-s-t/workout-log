@@ -57,7 +57,7 @@ class WorkoutExercise{
                     WHERE workout_id = ?";
         }
 
-        if ($this->exerciseId && $this->exerciseId != null) {
+        if ($this->exercise_id && $this->exercise_id != null) {
             // select one query
             $query = "SELECT
                         id, user_id, workout_id, exercise_id, step_number, weight_goal,
@@ -78,8 +78,8 @@ class WorkoutExercise{
             $stmt->bindParam(1, $this->workoutId);
         }
 
-        if ($this->exerciseId && $this->exerciseId != null) {
-            $stmt->bindParam(1, $this->exerciseId);
+        if ($this->exercise_id && $this->exercise_id != null) {
+            $stmt->bindParam(1, $this->exercise_id);
         }
     
         // execute query
@@ -102,24 +102,26 @@ class WorkoutExercise{
     
         // sanitize
         $this->user_id=htmlspecialchars(strip_tags($this->user_id));
-        $this->exerciseId=htmlspecialchars(strip_tags($this->exercise_id));
-        $this->stepNumber=htmlspecialchars(strip_tags($this->step_number));
-        $this->weightGoal=htmlspecialchars(strip_tags($this->weight_goal));
-        $this->timeGoal=htmlspecialchars(strip_tags($this->time_goal));
-        $this->setGoal=htmlspecialchars(strip_tags($this->set_goal));
-        $this->repGoal=htmlspecialchars(strip_tags($this->rep_goal));
+        $this->workout_id=htmlspecialchars(strip_tags($this->workout_id));
+        $this->exercise_id=htmlspecialchars(strip_tags($this->exercise_id));
+        $this->step_number=htmlspecialchars(strip_tags($this->step_number));
+        $this->weight_goal=htmlspecialchars(strip_tags($this->weight_goal));
+        $this->time_goal=htmlspecialchars(strip_tags($this->time_goal));
+        $this->set_goal=htmlspecialchars(strip_tags($this->set_goal));
+        $this->rep_goal=htmlspecialchars(strip_tags($this->rep_goal));
         $this->notes=htmlspecialchars(strip_tags($this->notes));
         $this->modified=htmlspecialchars(strip_tags($this->modified));
         $this->created=htmlspecialchars(strip_tags($this->created));
     
         // bind values
         $stmt->bindParam(":user_id", $this->user_id);
-        $stmt->bindParam(":exerciseId", $this->exercise_id);
-        $stmt->bindParam(":stepNumber", $this->step_number);
-        $stmt->bindParam(":weightGoal", $this->weight_goal);
-        $stmt->bindParam(":timeGoal", $this->time_goal);
-        $stmt->bindParam(":setGoal", $this->set_goal);
-        $stmt->bindParam(":repGoal", $this->rep_goal);
+        $stmt->bindParam(":workout_id", $this->workout_id);
+        $stmt->bindParam(":exercise_id", $this->exercise_id);
+        $stmt->bindParam(":step_number", $this->step_number);
+        $stmt->bindParam(":weight_goal", $this->weight_goal);
+        $stmt->bindParam(":time_goal", $this->time_goal);
+        $stmt->bindParam(":set_goal", $this->set_goal);
+        $stmt->bindParam(":rep_goal", $this->rep_goal);
         $stmt->bindParam(":notes", $this->notes);
         $stmt->bindParam(":modified", $this->modified);
         $stmt->bindParam(":created", $this->created);
@@ -129,6 +131,33 @@ class WorkoutExercise{
             return true;
         }
     
+        return false;
+    }
+
+    // copy workout
+    function copy($previous_workout_id){
+        // query to insert record
+        $query = "INSERT INTO
+                    " . $this->table_name . "
+                    (user_id, workout_id, exercise_id, step_number, weight_goal,
+                    time_goal, set_goal, rep_goal, notes, created, modified)
+                SELECT
+                    user_id, " . $this->workout_id . ", exercise_id, step_number, weight_goal,
+                    time_goal, set_goal, rep_goal, notes, NOW(), NOW()
+                FROM
+                    " . $this->table_name . "
+                WHERE workout_id = ?";
+    
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $previous_workout_id);
+    
+        // execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+      
         return false;
     }
 
@@ -147,20 +176,30 @@ class WorkoutExercise{
         $stmt = $this->conn->prepare($query);
     
         // sanitize
+        $this->id=htmlspecialchars(strip_tags($this->id));
         $this->user_id=htmlspecialchars(strip_tags($this->user_id));
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->workout_date=htmlspecialchars(strip_tags($this->workout_date));
+        $this->workout_id=htmlspecialchars(strip_tags($this->workout_id));
+        $this->exercise_id=htmlspecialchars(strip_tags($this->exercise_id));
+        $this->step_number=htmlspecialchars(strip_tags($this->step_number));
+        $this->weight_goal=htmlspecialchars(strip_tags($this->weight_goal));
+        $this->time_goal=htmlspecialchars(strip_tags($this->time_goal));
+        $this->set_goal=htmlspecialchars(strip_tags($this->set_goal));
+        $this->rep_goal=htmlspecialchars(strip_tags($this->rep_goal));
         $this->notes=htmlspecialchars(strip_tags($this->notes));
         $this->modified=htmlspecialchars(strip_tags($this->modified));
-        $this->id=htmlspecialchars(strip_tags($this->id));
     
-        // bind new values
-        $stmt->bindParam(':user_id', $this->user_id);
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':workout_date', $this->workout_date);
-        $stmt->bindParam(':notes', $this->notes);
-        $stmt->bindParam(':modified', $this->modified);
-        $stmt->bindParam(':id', $this->id);
+        // bind values
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":user_id", $this->user_id);
+        $stmt->bindParam(":workout_id", $this->workout_id);
+        $stmt->bindParam(":exercise_id", $this->exercise_id);
+        $stmt->bindParam(":step_number", $this->step_number);
+        $stmt->bindParam(":weight_goal", $this->weight_goal);
+        $stmt->bindParam(":time_goal", $this->time_goal);
+        $stmt->bindParam(":set_goal", $this->set_goal);
+        $stmt->bindParam(":rep_goal", $this->rep_goal);
+        $stmt->bindParam(":notes", $this->notes);
+        $stmt->bindParam(":modified", $this->modified);
     
         // execute the query
         if($stmt->execute()){

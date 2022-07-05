@@ -2,21 +2,90 @@
 
   <p *ngIf="workoutExercises.length == 0">You haven't created any exercises yet.</p>
 
-  <table *ngIf="workoutExercises.length > 0" mat-table [dataSource]="workoutExercises"
+  <mat-card class="exercise" *ngFor="let workoutExercise of workoutExercises">
+
+    <div class="progress-bar" style="max-width: {{workoutExercise.progressPercent}}%"></div>
+    <div class="title-row">
+      <span class="step-number">{{workoutExercise.stepNumber}}</span>
+      <div class="title">
+        {{workoutExercise.exercise?.name}}
+      </div>
+      <mat-icon class="edit-exercise" aria-hidden="false" aria-label="Edit Exercise"
+        routerLink="/workoutExercises/{{workoutId}}/{{workoutExercise.exerciseId}}">edit_note</mat-icon>
+      <div class="details">
+        <div *ngIf="workoutExercise.weightGoal > 0">
+          {{workoutExercise?.weightGoal}}lbs
+        </div>
+        <div *ngIf="workoutExercise.timeGoal > 0">
+          {{workoutExercise?.timeGoal}}secs
+        </div>
+      </div>
+    </div>
+    <div class="sets" *ngIf="workoutExercise.sets">
+      <div class="set" *ngFor="let set of workoutExercise.sets">
+        <div class="number-checkbox" [ngClass]="{'checked': set.reps}" (click)="editSet(workoutExercise, set)">
+          <span>{{set.reps || workoutExercise.repGoal}}</span>
+          <input type="hidden" value="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">{{workoutExercise.notes}}</div>
+
+    <!-- <p><b>Step Number:</b> {{workoutExercise?.stepNumber}}</p>
+    <p><b>Exercise:</b> {{workoutExercise?.exerciseId}}</p>
+    <p><b>Weight Goal:</b> {{workoutExercise?.weightGoal}}</p>
+    <p><b>Time Goal:</b> {{workoutExercise?.timeGoal}}</p>
+    <p><b>Set Goal:</b> {{workoutExercise?.setGoal}}</p>
+    <p><b>Rep Goal:</b> {{workoutExercise?.repGoal}}</p>
+    <p><b>Notes:</b> {{workoutExercise?.notes}}</p> -->
+  </mat-card>
+
+  <!-- <mat-accordion>
+    <mat-expansion-panel *ngFor="let workoutExercise of workoutExercises">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="progress-bar" style="max-width: {{workoutExercise.progressPercent}}%"></div>
+          <span class="step-number">
+            {{workoutExercise.stepNumber}}
+          </span>
+          <div class="title-actions">
+            <div>Exercise title thing</div>
+            <div *ngIf="workoutExercise.sets">
+              <div class="number-checkbox" *ngFor="let sets of workoutExercise.sets">
+                <span>{{workoutExercise.repGoal}}</span>
+                <input type="hidden" value="0">
+              </div>
+            </div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          {{workoutExercise.notes}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <button mat-fab aria-label="Edit Exercise"
+        routerLink="/workoutExercises/{{workoutId}}/{{workoutExercise.exerciseId}}" class="cta-bottom-right-absolute">
+        <mat-icon aria-hidden="false">edit_note</mat-icon>
+      </button>
+
+      <p><b>Step Number:</b> {{workoutExercise?.stepNumber}}</p>
+      <p><b>Exercise:</b> {{workoutExercise?.exerciseId}}</p>
+      <p><b>Weight Goal:</b> {{workoutExercise?.weightGoal}}</p>
+      <p><b>Time Goal:</b> {{workoutExercise?.timeGoal}}</p>
+      <p><b>Set Goal:</b> {{workoutExercise?.setGoal}}</p>
+      <p><b>Rep Goal:</b> {{workoutExercise?.repGoal}}</p>
+      <p><b>Notes:</b> {{workoutExercise?.notes}}</p>
+    </mat-expansion-panel>
+  </mat-accordion> -->
+
+  <!-- <table *ngIf="workoutExercises.length > 0" mat-table [dataSource]="workoutExercises"
     class="mat-elevation-z8 clickable">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container matColumnDef="stepNumber">
       <th mat-header-cell *matHeaderCellDef> Step </th>
       <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.stepNumber}} </td>
     </ng-container>
-
-    <!-- <ng-container matColumnDef="exerciseName">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.exerciseName}} </td>
-    </ng-container> -->
-
     <ng-container matColumnDef="weightGoal">
       <th mat-header-cell *matHeaderCellDef> Weight Goal </th>
       <td mat-cell *matCellDef="let workoutExercise"> {{workoutExercise.weightGoal}} </td>
@@ -43,11 +112,12 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      routerLink="/workoutExercises/{{row.workoutId}}/{{row.id}}"></tr>
+    </table> -->
 
 </div>
 
-<button mat-fab aria-label="Start Workout" routerLink="/workoutExercises/new" class="cta-bottom-right">
+<button mat-fab aria-label="Add Exercise" routerLink="/workoutExercises/{{workoutId}}/new" class="cta-bottom-right">
   <mat-icon aria-hidden="false">add</mat-icon>
 </button>

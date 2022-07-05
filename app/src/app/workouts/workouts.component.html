@@ -1,8 +1,8 @@
 <div *ngIf="loaded">
 
-  <p *ngIf="workouts.length == 0">You haven't created any workouts yet.</p>
+  <h1>Workouts</h1>
 
-  <p *ngIf="workouts.length > 0">These are the workouts you've created.</p>
+  <p *ngIf="workouts.length == 0">Create a workout to get started.</p>
 
   <table *ngIf="workouts.length > 0" mat-table [dataSource]="workouts" class="mat-elevation-z8 clickable">
     <!--- Note that these columns can be defined in any order.
@@ -18,6 +18,20 @@
     <ng-container matColumnDef="workoutDate">
       <th mat-header-cell *matHeaderCellDef> Date </th>
       <td mat-cell *matCellDef="let workout"> {{workout.workoutDate}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let workout">
+          <a role="button" (click)="copyWorkout(workout.id)">
+            <mat-icon aria-hidden="false">content_copy</mat-icon>
+          </a>
+          &nbsp;
+          <a role="button" (click)="deleteWorkout(workout.id)">
+            <mat-icon aria-hidden="false">delete</mat-icon>
+          </a>
+        </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

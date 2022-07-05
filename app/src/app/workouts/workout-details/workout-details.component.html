@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-sm-8">
       <h1>{{workout?.name}}</h1>
     </div>
-    <div class="col-md-4">
-      <h3>{{workout?.workoutDate}}</h3>
+    <div class="col-sm-4">
+      <h3>{{workout?.workoutDate | date:'M/d/yyyy H:mm a'}}</h3>
     </div>
   </div>
 </div>
@@ -12,3 +12,7 @@
 <p *ngIf="workout?.notes">{{workout?.notes}}</p>
 
 <app-workout-exercises></app-workout-exercises>
+
+<!-- <button mat-fab aria-label="Add Exercise" routerLink="/workoutExercises/{{workout?.id}}/new" class="cta-bottom-right">
+  <mat-icon aria-hidden="false">add</mat-icon>
+</button> -->
